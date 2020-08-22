@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.Data.EF\Auth.Data.EF.csproj" />
+    <ProjectReference Include="..\Auth.Entities\Auth.Entities.csproj" />
+    <ProjectReference Include="..\ContextLifeManager\ContextLifeManager.csproj" />
+  </ItemGroup>
+
+</Project>

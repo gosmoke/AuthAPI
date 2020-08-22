@@ -1,0 +1,13 @@
+﻿Initial Migration creation:  add-migration Initial -Context Auth.Data.EF.EFDataContext -Project Auth.Data.EF
+
+Future Migration creation:  add-migration "SOMETHINGSOMETHING" -Context Auth.Data.Ef.EFDataContext -Project Auth.Data.EF
+
+
+Future Migration creation:  update-database -Context Auth.Data.Ef.EFDataContext -Project Auth.Data.EF
+
+
+
+You have to update the EFDataContext and add new DbSets to new entities before running the above line or else they won't be picked up in the migration!
+
+
+

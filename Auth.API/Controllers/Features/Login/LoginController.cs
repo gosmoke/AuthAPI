@@ -72,6 +72,8 @@ namespace Auth.API.Controllers
             try
             {
                 string id = await _authenticationService.LoginAsync(request.AccountId, request.AppToken);
+                if (string.IsNullOrEmpty(id))
+                    return Unauthorized();
 
                 response.Content = _tokensService.GetJwtToken(id);
                 var fullToken = await _tokensService.GetRefreshByProfileIdAsync(new Guid(id));

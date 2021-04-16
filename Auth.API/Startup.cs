@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auth.Common.Features.Security;
+using Auth.Data;
+using Auth.Services;
+using Auth.Services.Infrastructure;
+using AutoMapper;
+using ContextLifeManager;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +34,7 @@ namespace Auth.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAutoMapper(typeof(MappingProfile));
 
             // I don't think we need this here.  This should go on the Applications (APIs) that will be using this service to authenticate.
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -51,6 +57,16 @@ namespace Auth.API
                 a.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthAPI", Version = "v1" });
             });
 
+            // Infrastructure
+            services.AddScoped<IDbContextFactory, DbContextFactory>();
+            services.AddScoped<IDbContextScopeFactory, DbContextScopeFactory>();
+            services.AddScoped<IAmbientDbContextLocator, AmbientDbContextLocator>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Services
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ILoggingService, LoggingService>();
+            services.AddScoped<ITokensService, TokensService>();
 
         }
 
